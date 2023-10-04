@@ -27,7 +27,7 @@ const links = [{
 }, {
   label: 'Vertical Navigation',
   icon: 'i-heroicons-chart-bar',
-  to: '/navigation/vertical-navigation',
+  to: '/auth',
 }, {
   label: 'Command Palette',
   icon: 'i-heroicons-command-line',
