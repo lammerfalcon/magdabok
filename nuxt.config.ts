@@ -1,16 +1,18 @@
-import { defineNuxtConfig } from "nuxt/config";
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
   modules: [
-    "@vite-pwa/nuxt",
-    "@kevinmarrec/nuxt-pwa",
-    "@vite-pwa/nuxt",
-    "@nuxtjs/supabase",
+    '@nuxtjs/google-fonts',
+    '@nuxthq/ui',
+    '@nuxtjs/supabase',
   ],
-  css: ["@/assets/css/main.css"],
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+  googleFonts: {
+    families: {
+      'Roboto': true,
+      'Nunito': [500],
+      'Raleway': [400, 500, 600, 700],
+      'Montserrat': [400, 500, 600, 700],
+      'Open Sans': [400, 500, 600, 700],
     },
   },
   // pwa: {
@@ -53,4 +55,4 @@ export default defineNuxtConfig({
   //     type: "module",
   //   },
   // },
-});
+})
