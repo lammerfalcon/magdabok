@@ -6,14 +6,14 @@ const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const isOpen = ref(false)
 const colorMode = useColorMode()
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  },
-})
+// const isDark = computed({
+//   get() {
+//     return colorMode.value === 'dark'
+//   },
+//   set() {
+//     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+//   },
+// })
 const links = [{
   label: 'Profile',
   avatar: {
@@ -62,10 +62,9 @@ async function handleFileUpload() {
     .from('patients_food_photos')
     .getPublicUrl(data.path)
   foodPhotoPreview.value = response.data
-  if (error) {
-    alert(error.message)
+  if (error)
     return
-  }
+
   foodPhoto.value.value = null
 }
 
