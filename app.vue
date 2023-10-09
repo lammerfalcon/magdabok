@@ -1,4 +1,5 @@
-<script setup></script>
+<script setup>
+</script>
 
 <template>
   <NuxtLayout>
@@ -6,8 +7,4 @@
   </NuxtLayout>
 </template>
 
-<style>
-body, #__nuxt {
-  min-height: 100vh;
-}
-</style>
+<style></style>

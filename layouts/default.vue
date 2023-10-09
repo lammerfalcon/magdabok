@@ -6,14 +6,14 @@ const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const isOpen = ref(false)
 const colorMode = useColorMode()
-// const isDark = computed({
-//   get() {
-//     return colorMode.value === 'dark'
-//   },
-//   set() {
-//     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-//   },
-// })
+const isDark = computed({
+  get() {
+    return colorMode.value === 'dark'
+  },
+  set() {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  },
+})
 const links = [{
   label: 'Profile',
   avatar: {
@@ -53,19 +53,23 @@ const foodPhotoPreview = ref(null)
 const description = ref(null)
 
 async function handleFileUpload() {
-  const uuid = await uuidv4()
-  const { data, error } = await supabase.storage
-    .from('patients_food_photos') // Use the correct bucket name here
-    .upload(`${user.value.id}/${uuid}`, foodPhoto.value.files[0])
-  foodPhoto.value = null
-  const response = supabase.storage
-    .from('patients_food_photos')
-    .getPublicUrl(data.path)
-  foodPhotoPreview.value = response.data
-  if (error)
-    return
-
-  foodPhoto.value.value = null
+  try {
+    const uuid = await uuidv4()
+    const { data, error } = await supabase.storage
+      .from('patients_food_photos') // Use the correct bucket name here
+      .upload(`${user.value.id}/${uuid}`, foodPhoto.value.files[0])
+    foodPhoto.value = null
+    const response = supabase.storage
+      .from('patients_food_photos')
+      .getPublicUrl(data.path)
+    foodPhotoPreview.value = response.data
+  }
+  catch (error) {
+    console.log('Error uploading file: ', error.message)
+  }
+  finally {
+    foodPhoto.value.value = null
+  }
 }
 
 async function createNewMeal() {
@@ -123,6 +127,7 @@ async function createNewMeal() {
       <UVerticalNavigation class="sticky top-10" :links="links" />
     </Ucard>
     <Ucard class="col-span-3">
+      {{ user }}
       <slot />
     </Ucard>
   </UContainer>

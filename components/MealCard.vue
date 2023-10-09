@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-defineProps<{ mealType: 'breakfast' | 'lunch' | 'dinner' }>()
+import type { Meal } from '~/pages/index.vue'
+
+defineProps<{ meal: Meal }>()
 const MEAL_TYPES = {
   all: {
     color: 'teal',
@@ -20,6 +22,12 @@ const MEAL_TYPES = {
 }
 const isOpen = ref(false)
 const currentBadge = ref('breakfast')
+function formatDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  const date = new Date(dateString)
+  const formattedDate = date.toLocaleDateString('ru-RU', options)
+  return formattedDate.replace(' г.', '')
+}
 </script>
 
 <template>
@@ -43,21 +51,20 @@ const currentBadge = ref('breakfast')
     <template #header>
       <div class="flex flex-nowrap justify-between" @click="isOpen = !isOpen">
         <h3 class="text-xl">
-          28 августа 15:00
+          {{ formatDate(meal.created_at) }}
         </h3>
-        <UBadge :color="MEAL_TYPES[mealType].color">
-          {{ MEAL_TYPES[mealType].text }}
+        <UBadge :color="MEAL_TYPES[meal.type].color">
+          {{ MEAL_TYPES[meal.type].text }}
         </UBadge>
       </div>
     </template>
     <div>
-      <img class="rounded-xl" src="../mock/img/meal1.jpg" alt="">
+      <img class="rounded-xl w-full" :src="meal.image_url" alt="">
     </div>
-    <template #footer>
+    <template v-if="meal.description" #footer>
       <div>
         <UAlert
-          title="супер"
-          description="все отлично, питание сбалансированно ропопопор орорлрлоролрло гаголрпоигпгнл пмрмрмо мромолр порпр" icon="i-heroicons-hand-thumb-up" color="emerald" variant="subtle"
+          :description="meal.description"
         />
       </div>
     </template>

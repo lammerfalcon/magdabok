@@ -3,7 +3,8 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 const loading = ref(false)
-const email = ref('rodiongavrilov@gmail.com')
+// const email = ref('rodiongavrilov@gmail.com')
+const email = ref('lammerfalcon@mail.ru')
 const role = ref('patient')
 
 async function handleLogin() {
