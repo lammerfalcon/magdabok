@@ -2,6 +2,10 @@
 import type { Meal } from '~/pages/index.vue'
 
 defineProps<{ meal: Meal }>()
+const emit = defineEmits(['update:fetchMeals'])
+const supabase = useSupabaseClient()
+const toast = useToast()
+
 const MEAL_TYPES = {
   all: {
     color: 'teal',
@@ -28,42 +32,63 @@ function formatDate(dateString) {
   const formattedDate = date.toLocaleDateString('ru-RU', options)
   return formattedDate.replace(' г.', '')
 }
+async function deleteMeal(mealId) {
+  try {
+    const { error } = await supabase
+      .from('patient_meals')
+      .delete()
+      .eq('id', mealId)
+    if (error)
+      throw error
+    emit('update:fetchMeals')
+    toast.add({
+      title: 'meal deleted',
+    })
+  }
+  catch (e) {
+    toast.add({
+      title: e.toString(),
+    })
+  }
+}
 </script>
 
 <template>
-  <USlideover v-model="isOpen" side="left">
-    <UCard class="flex flex-col flex-1" :ui="{ body: { base: 'flex-1' }, ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-      <template #header>
-        <div class="flex items-center justify-between">
-          <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-            Slideover
-          </h3>
-          <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isOpen = false" />
-        </div>
-      </template>
-      <div class="flex-nowrap flex gap-3">
-        <UBadge v-for="badge in MEAL_TYPES" :key="badge.color" :variant=" currentBadge === badge.text ? 'solid' : 'soft'" size="lg" :color="badge.color" :label="badge.text" @click="currentBadge = badge.text" />
-      </div>
-    </UCard>
-  </USlideover>
+  <!--  <USlideover v-model="isOpen" side="left"> -->
+  <!--    <UCard class="flex flex-col flex-1 ring-gray-900" :ui="{ body: { base: 'flex-1' }, ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }"> -->
+  <!--      <template #header> -->
+  <!--        <div class="flex items-center justify-between"> -->
+  <!--          <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white"> -->
+  <!--            Slideover -->
+  <!--          </h3> -->
+  <!--          <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isOpen = false" /> -->
+  <!--        </div> -->
+  <!--      </template> -->
+  <!--      <div class="flex-nowrap flex gap-3"> -->
+  <!--        <UBadge v-for="badge in MEAL_TYPES" :key="badge.color" :variant=" currentBadge === badge.text ? 'solid' : 'soft'" size="lg" :color="badge.color" :label="badge.text" @click="currentBadge = badge.text" /> -->
+  <!--      </div> -->
+  <!--    </UCard> -->
+  <!--  </USlideover> -->
 
-  <UCard class="max-w-xl">
+  <UCard :ui="{ ring: 'ring-0', shadow: 'shadow-none', divide: 'divide-none' }">
     <template #header>
-      <div class="flex flex-nowrap justify-between" @click="isOpen = !isOpen">
-        <h3 class="text-xl">
-          {{ formatDate(meal.created_at) }}
-        </h3>
+      <div class="flex flex-nowrap items-center gap-4" @click="isOpen = !isOpen">
         <UBadge :color="MEAL_TYPES[meal.type].color">
           {{ MEAL_TYPES[meal.type].text }}
         </UBadge>
+        <h5 class="text-md">
+          {{ formatDate(meal.created_at) }}
+        </h5>
+        <UButton variant="soft" color="red" size="2xs" class="ml-auto" icon="i-heroicons-trash" @click="deleteMeal(meal.id)" />
       </div>
     </template>
     <div>
-      <img class="rounded-xl w-full" :src="meal.image_url" alt="">
+      <NuxtImg format="webp" class="rounded-xl w-full" :src="meal.image_url" alt="" />
     </div>
     <template v-if="meal.description" #footer>
       <div>
         <UAlert
+          title="Description:"
           :description="meal.description"
         />
       </div>

@@ -21,6 +21,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@nuxt/image": "^1.0.0-rc.3",
     "uuid": "^9.0.1"
   },
   "overrides": {
