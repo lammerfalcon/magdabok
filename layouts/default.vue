@@ -45,7 +45,7 @@ const links = [{
       <div class="fixed left-0 right-0 bottom-0 z-10 md:hidden block ">
         <nav class="bg-white flex flex-row flex-nowrap gap-4 py-4 justify-around items-center">
           <UIcon class="text-xl" name="i-heroicons-trash" @click="isOpen = !isOpen" />
-          <UIcon class="text-xl" name="i-heroicons-trash" />
+          <UIcon class="text-xl" name="i-heroicons-arrow-left-on-rectangle" @click="logOut" />
           <UIcon class="text-xl" name="i-heroicons-trash" />
           <UIcon class="text-xl" name="i-heroicons-trash" />
         </nav>

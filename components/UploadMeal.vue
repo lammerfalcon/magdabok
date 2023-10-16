@@ -1,11 +1,15 @@
 <script setup>
 import { v4 as uuidv4 } from 'uuid'
+import { useMeals } from '~/composables/useMeals'
 
 const isOpen = defineModel()
 const user = useSupabaseUser()
 const toast = useToast()
 const supabase = useSupabaseClient()
+const { fetchMeals } = useMeals()
 const loading = ref(false)
+
+const img = useImage()
 const MEAL_TYPES = {
   breakfast: {
     color: 'green',
@@ -66,9 +70,9 @@ async function createNewMeal() {
       description: description.value,
     },
     )
+    await fetchMeals()
     currentBadge.value = MEAL_TYPES.breakfast
     foodPhotoPreview.value = null
-    toast.add({ title: 'Meal uploaded' })
   }
   catch (e) {
     toast.add({ title: e.toString() })
@@ -79,12 +83,15 @@ async function createNewMeal() {
     description.value = null
   }
 }
+function doSomethingOnLoad(e) {
+  console.log(e)
+}
 </script>
 
 <template>
   <USlideover v-model="isOpen" side="left">
-    <UCard class="h-full overflow-y-scroll">
-      <template #header>
+    <UCard class="h-full overflow-y-scroll" :ui="{ body: { base: 'h-full' } }">
+      <UForm :state="state" class="flex gap-4 flex-col h-full">
         <UAlert variant="soft" color="primary" title="Upload new meal">
           <template #title>
             <div class="flex flex-row justify-between">
@@ -93,9 +100,7 @@ async function createNewMeal() {
             </div>
           </template>
         </UAlert>
-      </template>
-      <UForm :state="state" class="flex gap-4 flex-col h-full">
-        <div class="flex-nowrap flex gap-3">
+        <div class="flex-nowrap flex gap-3 py-4">
           <UBadge v-for="badge in MEAL_TYPES" :key="badge.color" class="cursor-pointer" :variant=" currentBadge.text === badge.text ? 'solid' : 'soft'" size="lg" :color="badge.color" :label="badge.text" @click="currentBadge = badge" />
         </div>
         <div v-if="!foodPhotoPreview?.publicUrl" class="flex items-center justify-center w-full">
@@ -110,17 +115,23 @@ async function createNewMeal() {
             <input id="dropzone-file" ref="foodPhoto" type="file" class="hidden" @change="handleFileUpload()">
           </label>
         </div>
+
         <NuxtImg
           v-else
-          format="webp"
-          quality="10"
+          loading="lazy"
+          preload
           class="w-full rounded-md"
+          placeholder
+          quality="1"
+          format="webp"
           :src="foodPhotoPreview?.publicUrl"
         />
-        <UTextarea v-model="description" autoresize />
-        <UButton size="lg" :loading="loading" class="mt-auto" @click="createNewMeal()">
-          upload
-        </UButton>
+        <div class="flex flex-col gap-2 mt-auto">
+          <UTextarea v-model="description" class="" autoresize />
+          <UButton size="lg" :loading="loading" class="" @click="createNewMeal()">
+            upload
+          </UButton>
+        </div>
       </UForm>
     </UCard>
   </USlideover>

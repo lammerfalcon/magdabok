@@ -5,9 +5,8 @@ definePageMeta({
 })
 const supabase = useSupabaseClient()
 const toast = useToast()
-
 const loading = ref(false)
-const email = ref('asdasdasd@gmail.com')
+const email = ref('rodiongavrilov@gmail.com')
 
 async function handleLogin() {
   try {
@@ -34,7 +33,7 @@ async function handleLogin() {
       color: 'yellow',
       title: error.toString(),
       icon: 'i-heroicons-cog',
-      timeout: 4000,
+      timeout: 3000,
     })
   }
   finally {
@@ -44,13 +43,14 @@ async function handleLogin() {
 </script>
 
 <template>
-  <UCard class="w-1/3">
+  <UCard class="w-full mx-4 md:w-1/3">
     <template #header>
       <UAlert variant="soft" color="green" class="w-full whitespace-nowrap" title="Magdabok - your personal book" />
     </template>
     <form class="flex flex-col gap-2" @submit.prevent="handleLogin">
       <UInput v-model="email" name="email" class="w-full" type="email" placeholder="Your email" />
       <UButton
+        :loading="loading"
         variant="ghost"
         type="submit"
         class="self-start"

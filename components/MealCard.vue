@@ -3,6 +3,7 @@ import type { Meal } from '~/pages/index.vue'
 
 defineProps<{ meal: Meal }>()
 const emit = defineEmits(['update:fetchMeals'])
+
 const supabase = useSupabaseClient()
 const toast = useToast()
 
@@ -41,9 +42,6 @@ async function deleteMeal(mealId) {
     if (error)
       throw error
     emit('update:fetchMeals')
-    toast.add({
-      title: 'meal deleted',
-    })
   }
   catch (e) {
     toast.add({
@@ -83,7 +81,7 @@ async function deleteMeal(mealId) {
       </div>
     </template>
     <div>
-      <NuxtImg format="webp" class="rounded-xl w-full" :src="meal.image_url" alt="" />
+      <NuxtImg loading="lazy" placeholder quality="1" format="webp" class="rounded-xl w-full" :src="meal.image_url" alt="" />
     </div>
     <template v-if="meal.description" #footer>
       <div>
