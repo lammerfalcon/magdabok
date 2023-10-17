@@ -127,7 +127,7 @@ function doSomethingOnLoad(e) {
           :src="foodPhotoPreview?.publicUrl"
         />
         <div class="flex flex-col gap-2 mt-auto">
-          <UTextarea v-model="description" class="" autoresize />
+          <UTextarea v-model="description" size="xl" class="" autoresize />
           <UButton size="lg" :loading="loading" class="" @click="createNewMeal()">
             upload
           </UButton>

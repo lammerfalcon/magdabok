@@ -1,8 +1,12 @@
 <script setup>
+import { useSupabaseUser } from '#imports'
+
 definePageMeta({
   layout: 'login',
   middleware: ['guest'],
 })
+const user = useSupabaseUser()
+
 const supabase = useSupabaseClient()
 const toast = useToast()
 const loading = ref(false)
@@ -40,6 +44,10 @@ async function handleLogin() {
     loading.value = false
   }
 }
+watchEffect(() => {
+  if (user.value)
+    return navigateTo('/')
+})
 </script>
 
 <template>
@@ -48,7 +56,7 @@ async function handleLogin() {
       <UAlert variant="soft" color="green" class="w-full whitespace-nowrap" title="Magdabok - your personal book" />
     </template>
     <form class="flex flex-col gap-2" @submit.prevent="handleLogin">
-      <UInput v-model="email" name="email" class="w-full" type="email" placeholder="Your email" />
+      <UInput v-model="email" size="xl" name="email" class="w-full" type="email" placeholder="Your email" />
       <UButton
         :loading="loading"
         variant="ghost"

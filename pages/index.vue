@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { useMeals } from '#imports'
+import { useMeals, useSupabaseUser } from '#imports'
+
+const user = useSupabaseUser()
 
 definePageMeta({
   middleware: ['auth'],
@@ -8,6 +10,10 @@ definePageMeta({
 const { fetchMeals } = useMeals()
 const meals = useState('meals')
 fetchMeals()
+watchEffect(() => {
+  if (!user.value)
+    return navigateTo('/login')
+})
 </script>
 
 <template>
