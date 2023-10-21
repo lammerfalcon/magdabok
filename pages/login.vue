@@ -10,7 +10,7 @@ const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 const toast = useToast()
 const loading = ref(false)
-const email = ref('rodiongavrilov@gmail.com')
+const email = ref('')
 
 async function handleLogin() {
   try {

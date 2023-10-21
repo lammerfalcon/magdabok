@@ -19,16 +19,16 @@ const links = [{
   badge: 100,
   to: '/',
 }, {
-  label: 'Login',
-  icon: 'i-heroicons-home',
-  to: '/login',
+  label: 'Grid',
+  icon: 'i-heroicons-squares-2x2',
+  to: '/grid',
 }, {
-  label: 'Vertical Navigation',
-  icon: 'i-heroicons-chart-bar',
-  click: () => isDark.value = !isDark.value,
+  label: 'Pills',
+  icon: 'i-heroicons-lifebuoy',
+  to: '/pills',
 }, {
   label: 'New meal',
-  icon: 'i-heroicons-command-line',
+  icon: 'i-heroicons-plus-circle',
   click: () => isOpen.value = !isOpen.value,
 }, {
   label: 'logout',
