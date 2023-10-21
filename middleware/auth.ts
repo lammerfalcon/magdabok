@@ -12,7 +12,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/login')
     }
   }
-
+  watchEffect(() => {
+    if (!user.value)
+      return navigateTo('/login')
+  })
   // if (user.value && to.path === '/login')
   //   return navigateTo('/')
   // if (to.path !== '/')

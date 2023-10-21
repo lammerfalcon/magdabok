@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <NuxtLayout>
+  <NuxtLayout class="bg-stone-100">
     <UNotifications />
     <NuxtPage />
   </NuxtLayout>

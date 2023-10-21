@@ -53,7 +53,7 @@ watchEffect(() => {
 <template>
   <UCard class="w-full mx-4 md:w-1/3">
     <template #header>
-      <UAlert variant="soft" color="green" class="w-full whitespace-nowrap" title="Magdabok - your personal book" />
+      <UAlert variant="soft" color="primary" class="w-full whitespace-nowrap" title="Magdabok - your personal book" />
     </template>
     <form class="flex flex-col gap-2" @submit.prevent="handleLogin">
       <UInput v-model="email" size="xl" name="email" class="w-full" type="email" placeholder="Your email" />

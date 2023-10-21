@@ -2,6 +2,12 @@
 import { v4 as uuidv4 } from 'uuid'
 import { useMeals } from '~/composables/useMeals'
 
+const props = defineProps({
+  meal: {
+    type: Object,
+    default: null,
+  },
+})
 const isOpen = defineModel()
 const user = useSupabaseUser()
 const toast = useToast()
@@ -103,7 +109,7 @@ function doSomethingOnLoad(e) {
         <div class="flex-nowrap flex gap-3 py-4">
           <UBadge v-for="badge in MEAL_TYPES" :key="badge.color" class="cursor-pointer" :variant=" currentBadge.text === badge.text ? 'solid' : 'soft'" size="lg" :color="badge.color" :label="badge.text" @click="currentBadge = badge" />
         </div>
-        <div v-if="!foodPhotoPreview?.publicUrl" class="flex items-center justify-center w-full">
+        <div v-if="!foodPhotoPreview?.publicUrl && !meal?.img_url" class="flex items-center justify-center w-full">
           <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
             <div class="flex flex-col items-center justify-center py-1 md:pt-5 md:pb-6">
               <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -115,9 +121,8 @@ function doSomethingOnLoad(e) {
             <input id="dropzone-file" ref="foodPhoto" type="file" class="hidden" @change="handleFileUpload()">
           </label>
         </div>
-
         <NuxtImg
-          v-else
+          v-else-if="!meal?.img_url"
           loading="lazy"
           preload
           class="w-full rounded-md"
@@ -125,6 +130,15 @@ function doSomethingOnLoad(e) {
           quality="1"
           format="webp"
           :src="foodPhotoPreview?.publicUrl"
+        />
+        <NuxtImg
+          v-if="meal?.img_url"
+          loading="lazy"
+          preload
+          class="w-full rounded-md"
+          placeholder
+          quality="1"
+          format="webp" :src="meal?.img_url"
         />
         <div class="flex flex-col gap-2 mt-auto">
           <UTextarea v-model="description" size="xl" class="" autoresize />

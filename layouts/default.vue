@@ -39,15 +39,16 @@ const links = [{
 
 <template>
   <UploadMeal v-model="isOpen" class="overflow-y-scroll" />
-  <UContainer class="md:grid md:grid-cols-4 md:gap-4 lg:gap-20 md:p-2 lg:p-10 min-h-screen">
+  <UContainer class="md:grid md:grid-cols-4 md:gap-4 lg:gap-20 md:p-2 lg:p-10 min-h-screen ">
     <div class="relative md:col-span-1">
       <UVerticalNavigation class="sticky top-10 hidden md:block " :links="links" />
       <div class="fixed left-0 right-0 bottom-0 z-10 md:hidden block ">
         <nav class="bg-white dark:bg-black flex flex-row flex-nowrap gap-4 py-4 justify-around items-center">
-          <UIcon class="text-xl" name="i-heroicons-trash" @click="isOpen = !isOpen" />
-          <UIcon class="text-xl" name="i-heroicons-arrow-left-on-rectangle" @click="logOut" />
-          <UIcon class="text-xl" name="i-heroicons-trash" />
-          <UIcon class="text-xl" name="i-heroicons-trash" />
+          <UIcon class="text-2xl" name="i-heroicons-plus-circle" @click="isOpen = !isOpen" />
+          <UIcon class="text-2xl" name="i-heroicons-list-bullet" @click="navigateTo('/')" />
+          <UIcon class="text-2xl" name="i-heroicons-squares-2x2" @click="navigateTo('/grid')" />
+          <UIcon class="text-2xl" name="i-heroicons-lifebuoy" @click="navigateTo('/pills')" />
+          <UIcon class="text-2xl" name="i-heroicons-trash" @click="logOut" />
         </nav>
       </div>
     </div>

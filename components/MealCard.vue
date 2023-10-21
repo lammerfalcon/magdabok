@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Meal } from '~/pages/index.vue'
+import type { Meal } from '~/types/meal'
 
 defineProps<{ meal: Meal }>()
 const emit = defineEmits(['update:fetchMeals'])
