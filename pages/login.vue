@@ -53,7 +53,7 @@ watchEffect(() => {
 <template>
   <UCard class="w-full mx-4 md:w-1/3" :ui="{ background: 'bg-asparagus-100' }">
     <template #header>
-      <h2 class="text-2xl" title="Magdabok - your personal book">
+      <h2 class="text-2xl text-asparagus-500" title="Magdabok - your personal book">
         MAGDABOK
       </h2>
     </template>

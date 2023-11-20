@@ -10,7 +10,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <NuxtLayout class="bg-stone-100">
+  <NuxtLayout>
     <UNotifications />
     <NuxtPage />
   </NuxtLayout>

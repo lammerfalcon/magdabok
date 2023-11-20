@@ -11,6 +11,9 @@ export default defineNuxtConfig({
   // image: {
   //   domains: ['https://acchwamgjumnepffinxd.supabase.co'],
   // },
+  colorMode: {
+    preference: 'light'
+  },
   googleFonts: {
     families: {
       Inter: [400],

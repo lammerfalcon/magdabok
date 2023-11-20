@@ -1,15 +1,15 @@
 <script setup>
 const isOpen = ref(false)
-const colorMode = useColorMode()
+// const colorMode = useColorMode()
 const supabase = useSupabaseClient()
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  },
-})
+// const isDark = computed({
+//   get() {
+//     return colorMode.value === 'dark'
+//   },
+//   set() {
+//     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+//   },
+// })
 async function logOut() {
   const { error } = await supabase.auth.signOut({ scope: 'global' })
   await navigateTo('/login')
