@@ -43,7 +43,7 @@ const links = [{
     <div class="relative md:col-span-1">
       <UVerticalNavigation class="sticky top-10 hidden md:block " :links="links" />
       <div class="fixed left-0 right-0 bottom-0 z-10 md:hidden block ">
-        <nav class="bg-white dark:bg-black flex flex-row flex-nowrap gap-4 py-4 justify-around items-center">
+        <nav class="bg-asparagus-100 dark:bg-black flex flex-row flex-nowrap gap-4 py-4 justify-around items-center">
           <UIcon class="text-2xl" name="i-heroicons-plus-circle" @click="isOpen = !isOpen" />
           <UIcon class="text-2xl" name="i-heroicons-list-bullet" @click="navigateTo('/')" />
           <UIcon class="text-2xl" name="i-heroicons-squares-2x2" @click="navigateTo('/grid')" />
@@ -59,5 +59,5 @@ const links = [{
 </template>
 
 <style scoped>
-
+@import "@/assets/css/main.css";
 </style>

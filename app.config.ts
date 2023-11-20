@@ -1,8 +1,8 @@
 export default defineAppConfig({
   ui: {
-    // primary: 'cyan',
-    // gray: 'stone',
-    safelistColors: ['orange ,yellow, rose, green, amber, white, teal'],
+    primary: 'asparagus',
+    gray: 'neutral',
+    safelistColors: ['orange ,yellow, rose, green, amber, white, teal, asparagus, neutral'],
     notifications: {
       // Show toasts at the top right of the screen
       position: 'top-0',
