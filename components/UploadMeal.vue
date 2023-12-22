@@ -47,12 +47,12 @@ async function handleFileUpload() {
     loading.value = true
     const uuid = uuidv4()
     const { data, error } = await supabase.storage
-      .from('patients-food-photos') // Use the correct bucket name here
+      .from('patients_food_photos') // Use the correct bucket name here
       .upload(`${user.value.id}/${uuid}`, foodPhoto.value.files[0])
     console.log(foodPhoto.value.files)
     foodPhoto.value = null
     const response = supabase.storage
-      .from('patients-food-photos')
+      .from('patients_food_photos')
       .getPublicUrl(data.path)
     foodPhotoPreview.value = response.data
     loading.value = false
@@ -99,14 +99,17 @@ function doSomethingOnLoad(e) {
   <USlideover v-model="isOpen" side="left">
     <UCard class="h-full overflow-y-scroll" :ui="{ body: { base: 'h-full' } }">
       <UForm :state="state" class="flex gap-4 flex-col h-full">
-        <UAlert variant="soft" color="primary" title="Upload new meal">
+        <div>
+
+        <UAlert variant="soft" color="primary">
           <template #title>
             <div class="flex flex-row justify-between">
-              <span>New meal</span>
+              <div>New meal</div>
               <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1" @click="isOpen = false" />
             </div>
           </template>
         </UAlert>
+        </div>
         <div class="flex-nowrap flex gap-3 py-4">
           <UBadge v-for="badge in MEAL_TYPES" :key="badge.color" class="cursor-pointer" :variant=" currentBadge.text === badge.text ? 'solid' : 'soft'" size="lg" :color="badge.color" :label="badge.text" @click="currentBadge = badge" />
         </div>
