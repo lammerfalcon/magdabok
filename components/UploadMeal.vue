@@ -47,12 +47,12 @@ async function handleFileUpload() {
     loading.value = true
     const uuid = uuidv4()
     const { data, error } = await supabase.storage
-      .from('patients_food_photos') // Use the correct bucket name here
+      .from('patients-food-photos') // Use the correct bucket name here
       .upload(`${user.value.id}/${uuid}`, foodPhoto.value.files[0])
     console.log(foodPhoto.value.files)
     foodPhoto.value = null
     const response = supabase.storage
-      .from('patients_food_photos')
+      .from('patients-food-photos')
       .getPublicUrl(data.path)
     foodPhotoPreview.value = response.data
     loading.value = false
