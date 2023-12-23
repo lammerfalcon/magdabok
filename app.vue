@@ -11,6 +11,6 @@
   </div>
 </template>
 
-<style lang="postcss">
+<style>
 @import "@/assets/css/main.css";
 </style>

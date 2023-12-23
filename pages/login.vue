@@ -44,10 +44,11 @@ async function handleLogin() {
     loading.value = false
   }
 }
-watchEffect(() => {
-  if (user.value)
+watch(user, () => {
+  if (user.value) {
     return navigateTo('/')
-})
+  }
+}, { immediate: true })
 </script>
 
 <template>
