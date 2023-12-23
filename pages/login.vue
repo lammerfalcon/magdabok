@@ -20,6 +20,7 @@ async function handleLogin() {
         emailRedirectTo: 'http://localhost:3000/confirm',
         data: {
           role: 'patient',
+          website: email.value,
         },
       },
     })

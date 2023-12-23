@@ -49,7 +49,6 @@ async function handleFileUpload() {
     const { data, error } = await supabase.storage
       .from('patients_food_photos') // Use the correct bucket name here
       .upload(`${user.value.id}/${uuid}`, foodPhoto.value.files[0])
-    console.log(foodPhoto.value.files)
     foodPhoto.value = null
     const response = supabase.storage
       .from('patients_food_photos')
