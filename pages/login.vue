@@ -3,7 +3,6 @@ import { useSupabaseUser } from '#imports'
 
 definePageMeta({
   layout: 'login',
-  middleware: ['guest'],
 })
 const user = useSupabaseUser()
 
@@ -15,9 +14,10 @@ const email = ref('')
 async function handleLogin() {
   try {
     loading.value = true
-    const { error, data } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithOtp({
       email: email.value,
       options: {
+        emailRedirectTo: 'http://localhost:3000/confirm',
         data: {
           role: 'patient',
         },
