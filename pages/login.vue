@@ -5,7 +5,6 @@ definePageMeta({
   layout: 'login',
 })
 const user = useSupabaseUser()
-
 const supabase = useSupabaseClient()
 const toast = useToast()
 const loading = ref(false)
@@ -17,7 +16,7 @@ async function handleLogin() {
     const { error } = await supabase.auth.signInWithOtp({
       email: email.value,
       options: {
-        emailRedirectTo: 'http://localhost:3000/confirm',
+        emailRedirectTo: window.location.origin + '/confirm',
         data: {
           role: 'patient',
           website: email.value,
